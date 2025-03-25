@@ -1,7 +1,7 @@
 package com.smorzhok.factorialtest
 
-class State(
-    val loading: Boolean = false,
-    val factorial: String = "",
-    val error: Boolean = false
-)
+sealed class State
+
+data object Error : State()
+data object Loading : State()
+class Factorial(val factorial: String):State()

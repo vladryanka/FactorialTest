@@ -13,22 +13,16 @@ class MainViewModel : ViewModel() {
     val state: LiveData<State> get() = _state
 
     fun calculate(value: String?) {
-        _state.value = State(
-            loading = true
-        )
+        _state.value = Loading
         if (value.isNullOrBlank()) {
-            _state.value = State(
-                error = true
-            )
+            _state.value = Error
             return
         }
         viewModelScope.launch {
             val number = value.toLong()
 
             delay(1000)
-            _state.value = State(
-                factorial = number.toString()
-            )
+            _state.value = Factorial(factorial = number.toString())
         }
     }
 }
