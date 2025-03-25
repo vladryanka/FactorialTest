@@ -26,28 +26,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.progress.observe(this) {
-            if (it == true) {
+        viewModel.state.observe(this){
+            if (it.loading) {
                 binding.progressBarLoading.visibility = View.VISIBLE
                 binding.buttonCalculate.isEnabled = false
             } else {
                 binding.buttonCalculate.isEnabled = true
                 binding.progressBarLoading.visibility = View.GONE
             }
-        }
-        viewModel.isError.observe(this)
-        {
-            if (it) {
+
+            if (it.error) {
                 Toast.makeText(
                     this,
                     "You did not enter the value",
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        }
-        viewModel.factorial.observe(this)
-        {
-            binding.textViewFactorial.text = it
+
+            binding.textViewFactorial.text = it.factorial
         }
     }
 }
